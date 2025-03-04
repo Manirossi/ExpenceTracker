@@ -27,23 +27,16 @@ body {
     text-align: center;
 }
 
-input, button {
+input {
     display: block;
     margin: 10px auto;
     padding: 10px;
     border-radius: 5px;
     width: 90%;
+    text-align: center; /* Centers the placeholder text */
 }
 
 button {
-    background-color: #5b05fa;
-    color: white;
-    cursor: pointer;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-}
-#logout-btn {
     background-color: #5b05fa;
     color: white;
     cursor: pointer;
@@ -54,6 +47,7 @@ button {
     border-radius: 5px;
     font-size: 16px;
 }
+
 
 /* Responsive - Desktop */
 @media (min-width: 768px) {

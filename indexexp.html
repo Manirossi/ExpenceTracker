@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="expence.css">
+</head>
+<body>
+
+    <!-- Expense Tracker Page (Two Containers) -->
+    <div id="expense-container" class="main-container">
+        
+        <!-- Left: User Data Entry -->
+        <div class="box input-box">
+            <h2>➕ Add New Expense</h2>
+            <input type="text" id="expense-name" placeholder="Expense Name">
+            <input type="number" id="expense-amount" placeholder="Amount">
+            <button onclick="addExpense()">➕ Add Expense</button>
+        </div>
+
+        <!-- Right: Expense Report -->
+        <div class="box report-box">
+            <h2>📊 Expense Report</h2>
+            <ul id="expense-list"></ul>
+        </div>
+    </div>
+
+    <!-- Logout Button (Bottom Right) -->
+    <button id="logout-btn" onclick="logout()">🚪 Refresh</button>
+
+    <script src="expence.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Default: Stack on top of each other */
+    width: 100%;
+    max-width: 600px;
+}
+
+.box {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px; /* Add spacing */
+    text-align: center;
+}
+
+input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    width: 90%;
+}
+
+button {
+    background-color: #5b05fa;
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+#logout-btn {
+    background-color: #5b05fa;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px; /* Adjust padding to fit text */
+    width: auto; /* Auto width based on text */
+    min-width: fit-content; /* Ensures button doesn't shrink too much */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Responsive - Desktop */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row; /* Side-by-side on larger screens */
+        justify-content: space-between;
+    }
+    
+    .box {
+        width: 48%; /* Take up equal space */
+    }
+}

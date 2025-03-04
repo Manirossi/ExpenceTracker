@@ -1,53 +1,53 @@
-// Login function
-function login() {
-    // Redirect to expense tracker page after login
-    window.location.href = "expense.html";
+// Function to update the total expense amount
+function updateTotal() {
+    let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    let total = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
+    document.getElementById("total-expense").value = `Total: ₹${total}`;
 }
 
-// Logout function
-function logout() {
-    window.location.href = "index.html"; // Redirect back to login page
+// Modified function to display expenses
+function displayExpenses() {
+    let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    let now = new Date().getTime();
+    let expenseList = document.getElementById("expense-list");
+    expenseList.innerHTML = "";
+
+    if (expenses.length === 0) {
+        expenseList.innerHTML = "<li>No expenses added yet.</li>";
+        updateTotal(); // Update total to 0
+        return;
+    }
+
+    expenses.forEach(expense => {
+        let diffHours = (now - expense.timestamp) / (1000 * 60 * 60);
+        let status = diffHours >= 12 ? "⏳ Data will refresh soon" : `Last Updated: ${new Date(expense.timestamp).toLocaleString()}`;
+
+        let listItem = document.createElement("li");
+        listItem.innerHTML = `${expense.name} - ₹${expense.amount} (${status})`;
+
+        expenseList.appendChild(listItem);
+    });
+
+    updateTotal(); // Update total when expenses are displayed
 }
 
-// Add Expense Function
+// Modified Add Expense function (calls updateTotal)
 function addExpense() {
-    let name = document.getElementById("expense-name").value;
-    let amount = document.getElementById("expense-amount").value;
-    let timestamp = new Date().getTime(); // Store as timestamp (milliseconds)
+    let name = document.getElementById("expense-name").value.trim();
+    let amount = document.getElementById("expense-amount").value.trim();
+    let timestamp = new Date().getTime();
 
-    if (name.trim() !== "" && amount.trim() !== "") {
-        let expenseData = { name, amount, timestamp };
-        localStorage.setItem("expense", JSON.stringify(expenseData));
+    if (name !== "" && amount !== "") {
+        let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+        expenses.push({ name, amount, timestamp });
+        localStorage.setItem("expenses", JSON.stringify(expenses));
 
-        alert("Expense added! Report will refresh in 24 hours.");
-        displayExpenses(); // Update UI immediately
+        displayExpenses(); // Update UI
     }
 
     document.getElementById("expense-name").value = "";
     document.getElementById("expense-amount").value = "";
 }
 
-// Load Expenses (Only refresh after 24 hours)
-function displayExpenses() {
-    let savedExpense = JSON.parse(localStorage.getItem("expense"));
-
-    if (savedExpense) {
-        let lastUpdated = savedExpense.timestamp;
-        let now = new Date().getTime();
-        let diffHours = (now - lastUpdated) / (1000 * 60 * 60); // Convert milliseconds to hours
-
-        if (diffHours >= 24) {
-            // Keep the data but mark it as stale
-            document.getElementById("expense-list").innerHTML = 
-                `<li>${savedExpense.name} - ₹${savedExpense.amount} (⏳ Data will refresh soon)</li>`;
-        } else {
-            document.getElementById("expense-list").innerHTML = 
-                `<li>${savedExpense.name} - ₹${savedExpense.amount} (Last Updated: ${new Date(lastUpdated).toLocaleString()})</li>`;
-        }
-    } else {
-        document.getElementById("expense-list").innerHTML = "<li>No recent expenses.</li>";
-    }
-}
-
-// Call function on page load to display saved expenses
+// Load expenses when page loads
 document.addEventListener("DOMContentLoaded", displayExpenses);
